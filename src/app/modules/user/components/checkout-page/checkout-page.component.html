@@ -1,0 +1,78 @@
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Check out</li>
+            </ol>
+        </div>
+        <!--/breadcrums-->
+
+        <div class="shopper-informations" *ngIf="!showAddress">
+            <div class="row">
+
+
+                <div class="col-sm-5 clearfix">
+                    <div class="bill-to">
+                        <p>Add Address</p>
+                        <form [formGroup]="userAddressForm" (ngSubmit)="addAddress()">
+                            <div class="form-one ">
+                                <input type="text" placeholder=" Name *" formControlName="name" class="form-control mt-3 ">
+                                <input type="text" placeholder="Address 1 *" formControlName="address" class="form-control mt-3">
+                                <input type="text" placeholder="Address 2" class="form-control mt-3">
+                                <input type="text" placeholder="City*" formControlName="city" class="form-control mt-3 ">
+
+                            </div>
+                            <div class="form-two">
+                                <select class="form-control mt-3 " formControlName="country">
+                                    <option>-- Country --</option>
+                                    <option>United States</option>
+                                    <option>Bangladesh</option>
+                                    <option>UK</option>
+                                    <option>India</option>
+                                    <option>Pakistan</option>
+                                    <option>Ucrane</option>
+                                    <option>Canada</option>
+                                    <option>Dubai</option>
+                                </select>
+                                <input type="text" placeholder="Zip / Postal Code *" formControlName="pincode" class="form-control mt-3 ">
+                                <input type="text" placeholder="Locality *" formControlName="locality" class="form-control mt-3 ">
+                                <input type="text" placeholder="State *" formControlName="state" class="form-control mt-3 ">
+                                <input type="text" placeholder="Mobile Phone *" formControlName="mobileNumber" class="form-control mt-3 ">
+                                <input type="text" placeholder="Alternate Phone" formControlName="alternate_phone" class="form-control mt-3 ">
+                             
+
+                            </div>
+
+                            <button type="submit" class="btn btn-success" [disabled]="userAddressForm.invalid" > Place Order</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="order-message">
+                        <p>Shipping Order</p>
+                        <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery"
+                            rows="16"></textarea>
+                        <label><input type="checkbox"> Shipping to bill address</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4" *ngIf="showAddress">
+            <div class="address1">
+                <h2>Shipping Address</h2>
+                <div *ngFor="let address of userAddress">
+                    <p>{{address.address}}  {{address.locality}} <br>{{address.city}},{{address.state}}</p>
+                    <p>({{address.pincode}})</p>
+                    <p>Contact No.:-{{address.mobileNumber}}</p>
+                </div>
+            </div>
+            <button class="btn btn-success m-4">Confirm Order</button>
+        </div>
+
+    </div>
+    <user-cart></user-cart>
+ 
+</section>
+<!--/#cart_items-->

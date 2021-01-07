@@ -1,0 +1,34 @@
+<main class="container">
+
+    <!-- Left Column / Headphones Image -->
+    <div>
+        <div class="product_img">
+            <img data-image="red" class="active" src="http://localhost:3001/uploads/{{viewproductDetails.product_img}}"
+                alt="" style="width: 65%;">
+        </div>
+
+        <div>
+            
+            <h1 class=" mt-2 text-primary">{{viewproductDetails.product_name}}</h1>
+            <p class="text-dark">{{viewproductDetails.description}}</p>
+            <div >
+                <span style="font-size: 20px;">Price:-{{viewproductDetails.price | currency:'INR'}}</span><br>
+              <p>Stock: {{viewproductDetails.quantity ? 'Available':'Out of Stock'}}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Right Column -->
+    <div>
+
+        <!-- Product Description -->
+
+
+
+
+        <!-- Product Pricing -->
+
+    </div>
+</main>

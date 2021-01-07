@@ -1,0 +1,7 @@
+.isProductsExists{
+    display: grid;
+   align-items: center;
+    justify-content: center;
+    color: red;  
+    height: 50vh;
+}

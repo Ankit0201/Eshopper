@@ -1,0 +1,143 @@
+<div class="row">
+    <div class="col-md-12">
+        <admin-header></admin-header>
+    </div>
+    <div class="col-md-3">
+        <admin-side-nav></admin-side-nav>
+    </div>
+    <div class=" col-md-7 list">
+        <div class="name">
+            <h1>Products</h1>
+            <hr>
+        </div>
+        <div class="d-flex justify-content-between">
+            <mat-form-field appearance="fill" style="width: 50%;">
+ 
+                <mat-label>Search </mat-label>
+                <input matInput name="searchkey"  [(ngModel)]="searchKey" (input)=apply() >
+                <mat-icon class="search">search</mat-icon>
+            </mat-form-field>
+            <div>
+                <button mat-raised-button color="primary"  >Sort By Name</button>
+            </div>
+            <div>
+                <button mat-raised-button color="accent" data-toggle="modal" data-target="#exampleModal">
+                    Add Products</button>
+            </div>
+        </div>
+
+        
+        <mat-table class="lessons-table mat-elevation-z8" [dataSource]="listData" style="width: 123%;">
+
+            <ng-container matColumnDef="Product-Name">
+                <mat-header-cell *matHeaderCellDef>Product-Name</mat-header-cell>
+                <mat-cell *matCellDef="let product ">{{product.product_name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Category">
+                <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+                <mat-cell *matCellDef="let product ">{{product.category.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Description" >
+                <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+               <mat-cell *matCellDef="let product ">{{product.description | slice:0:50}}....</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Price" >
+                <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+               <mat-cell *matCellDef="let product ">{{product.price}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Image" >
+                <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+               <mat-cell *matCellDef="let product ">
+                   <img src="http://localhost:3001/uploads/{{product.product_img}}" alt="Images" style="height: 81px;">
+                </mat-cell>
+            </ng-container>
+
+             <ng-container matColumnDef="Action">
+                <mat-header-cell *matHeaderCellDef>Action </mat-header-cell>
+                <mat-cell class="duration-cell" *matCellDef="let product">
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                        <mat-icon   (click)="editProduct(product._id)" data-bs-toggle="modal" data-bs-target="#exampleModal">edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+                        <mat-icon  (click)="removeProduct(product._id)">delete-outline</mat-icon>
+                    </button>
+                </mat-cell>
+              
+
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row *matRowDef="let row; columns: displayedColumns" style="height: 100px;"></mat-row>
+
+        </mat-table>
+    </div>
+</div>
+
+<!--Form--> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Products</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeModel()"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="example-container">
+                    <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+                        <div class="form-group">
+                            <label for="product-name">Product Name</label>
+                            <input type="text" class="form-control" id="product-name" formControlName="product_name"
+                                placeholder="Enter Product name ....">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="description" formControlName="description"
+                                placeholder="Enter Description here....">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" id="price" formControlName="price"
+                                placeholder="Enter price...">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="text" class="form-control" id="quantity" formControlName="quantity"
+                                placeholder="Enter Quantity....">
+                        </div>
+                        <br>
+                        <div class="form-group"  >
+                            <label for="category">Categroy</label>
+                            <br>
+                            <select name="parentCategory" formControlName="category"  placeholder="Enter category....">
+                                <!-- <option  *ngFor="let category of allCategory" value="{{category._id}}">{{category.name}}</option>  -->
+                                <option  *ngFor="let sub_categories of subCategory" value="{{sub_categories._id}}">{{sub_categories.name}}</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="image">Product Image</label><br>
+                            <input type="file" name="image" multiple (change)="selectImage($event)"
+                                formControlName="product_img" placeholder="Example input">
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid" >{{!isEdit ? 'Add Products' : 'Update Products'}}</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

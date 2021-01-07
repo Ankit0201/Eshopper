@@ -1,0 +1,57 @@
+<header id="header">
+    <!--header-->
+    <div class="header-middle">
+        <!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="logo pull-left">
+                        <a><img src="assets/images/patel-shop.png" alt="" style="height:47px;width:120px"></a>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav " style="flex-direction: row;">
+                            <li routerLink="/user" ><a><i class="fa fa-home"></i>
+                                    Home</a></li>
+                            <li routerLink="/user/products-details"><a><i class="fa fa-home"></i> Products</a></li>
+                            <li *ngIf="sharedService.isTokenAvailable()" routerLink="/user/cart"><a><i class="fa fa-shopping-cart"></i> Cart</a>
+                            </li>
+                            <li *ngIf="!sharedService.isTokenAvailable()"><a routerLink="/user/sign-in"><i
+                                        class="fa fa-lock"></i> Sign-in</a></li>
+                            <li> <a mat-button class="full-height" [matMenuTriggerFor]="profile"
+                                    style="margin-top: -7px;">
+                                    <div class="header-menu-box">
+                                        <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png"
+                                            width="35px">
+                                        <div class="very-small-gap"></div>
+                                        <span class="header-menu-text">User</span>
+                                        <div class="very-small-gap"></div>
+                                        <mat-icon>keyboard_arrow_down</mat-icon>
+                                    </div>
+                                </a>
+                                <mat-menu #profile="matMenu">
+                                    <button mat-menu-item *ngIf="sharedService.isTokenAvailable()">
+                                        <mat-icon>perm_identity</mat-icon>
+                                        Profile
+                                    </button>
+                                    <button routerLink="/user/sign-in" mat-menu-item
+                                        *ngIf="!sharedService.isTokenAvailable()">
+                                        <mat-icon>lock</mat-icon> Sign-in
+                                    </button>
+
+                                    <button mat-menu-item *ngIf="sharedService.isTokenAvailable()" (click)="isLogOut()">
+                                        <mat-icon>power_settings_new</mat-icon>
+                                        Logout
+                                    </button>
+                                </mat-menu>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/header-middle-->
+</header>
+<!--/header-->

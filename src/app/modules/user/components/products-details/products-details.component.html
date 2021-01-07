@@ -1,0 +1,24 @@
+<div class="features_items row" ><!--features_items-->
+    <div class="col-sm-6" *ngFor="let product of products">
+        <div class="product-image-wrapper" >
+            <div class="single-products">
+                    <div class="productinfo text-center">
+                        <img src="http://localhost:3001/uploads/{{product.product_img}}"  style="height: 185px;width: 60% ;"
+                        alt="Product Img not found" />
+                        <p style="font-size: 20px; margin-top: 7px;">{{product.product_name  | uppercase}}</p>
+                        <!-- <p style="width: 90%;">{{product.description | slice:0:100}}....</p> -->
+                        <h2>{{product.price | currency:'INR'}}</h2>
+                        <div>
+                        <a  class="btn btn-default add-to-cart" (click)="addedToCart(product._id)"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        <a  class="btn btn-primary mt-0 add-to-cart"  (click)="openViewProductDetail(product)" style="margin-left: 10px;" ><i class="fa fa-eye"></i>View Details</a>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h1 *ngIf="isProductsExists" class="isProductsExists">Products are not available of this Category</h1>
+    </div>
+  
+    
+</div><!--features_items-->	

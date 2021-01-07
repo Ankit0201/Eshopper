@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-md-12">
+        <admin-header></admin-header>
+    </div>
+    <div class="col-md-3">
+        <admin-side-nav></admin-side-nav>
+    </div>
+    <div class=" col-md-7 list">
+        <div class="name">
+            <h1>Categories</h1>
+        </div>
+        <div class="d-flex justify-content-between">
+            <mat-form-field appearance="fill" style="width: 50%;">
+
+                <mat-label>Search </mat-label>
+                <input matInput name="searchkey" [(ngModel)]="searchKey" (input)=apply()>
+                <mat-icon class="search">search</mat-icon>
+            </mat-form-field>
+            <div>
+                <button mat-raised-button color="primary" (click)='sortCategory()'>Sort By Name</button>
+            </div>
+            <div>
+                <button mat-raised-button color="accent" data-toggle="modal" data-target="#exampleModal">Add
+                    Categories</button>
+            </div>
+        </div>
+
+
+        <mat-table matSort class="lessons-table mat-elevation-z8" [dataSource]="listData" style="width: 123%;">
+
+            <ng-container matColumnDef="Category-Name">
+                <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+                <mat-cell *matCellDef="let category ">{{category.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Sub-Categories">
+                <mat-header-cell *matHeaderCellDef>Sub-Categories</mat-header-cell>
+                <mat-cell *matCellDef="let category ">
+                    <div class="d-block">
+                        <ol style="overflow-y: auto;height: 59px;">
+                            <li *ngFor="let sub of category.sub_categories" (click)="editCategory(sub)"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal">{{sub.name}}</li>
+                        </ol>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Edit">
+                <mat-header-cell *matHeaderCellDef>Edit </mat-header-cell>
+                <mat-cell class="duration-cell" *matCellDef="let category">
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                        <mat-icon (click)="editCategory(category)" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">edit</mat-icon>
+                    </button>
+                </mat-cell>
+
+            </ng-container>
+            <ng-container matColumnDef="Delete">
+                <mat-header-cell *matHeaderCellDef>Delete </mat-header-cell>
+                <mat-cell class="duration-cell" *matCellDef="let category">
+                    <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+                        <mat-icon (click)="removeCategory(category._id)">delete-outline</mat-icon>
+                    </button>
+
+                </mat-cell>
+
+            </ng-container>
+            
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row *matRowDef="let row; columns: displayedColumns" style="height: 100px;"></mat-row>
+
+        </mat-table>
+        
+            <mat-paginator [pageSizeOptions]="[3,10,25,100]" [pageSize]="3" showFirstLastButtons></mat-paginator>
+        
+
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" (click)="close()"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="example-container">
+                    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Enter a category</mat-label>
+                            <input matInput type="text" name="category" formControlName="category">
+                            <mat-error *ngIf="categoryForm.controls['category'].invalid ">Please Add Category
+                            </mat-error>
+                        </mat-form-field><br>
+
+                        <div>
+
+                            <select name="parentCategory" formControlName="parentCategory">
+                                <option value="">Category</option>
+                                <option value="" *ngFor="let data of dataSource.category" value="{{data._id}}">
+                                    {{data.name}}</option>
+                            </select>
+
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button  class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                            <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">{{!isEdit ?
+                                "Add Category":"Update Category"}}</button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

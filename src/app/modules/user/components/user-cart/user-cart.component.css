@@ -1,0 +1,7 @@
+.cart_info table tr td{
+    border-top: 0 none;
+    vertical-align: inherit;
+}
+.middle{
+    padding: 50px 0 0 20px;
+}

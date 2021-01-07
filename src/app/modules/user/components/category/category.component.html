@@ -1,0 +1,38 @@
+
+<section>
+    <div class="container">
+        <div class="row" style="margin: 20px 0 0 10px;">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <div class="panel panel-default"  *ngFor="let category of allCategory;let i=index">
+                            <div class="panel-heading">
+                                <h4 class="panel-title" style="margin-bottom: 2px;">
+                                    <a class="text-primary">
+                                        <span class="badge pull-right"    data-bs-toggle="collapse" [attr.href]="'#collapseExample' + i " role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-plus"></i></span>
+                                       {{category.name}}
+                                    </a>
+                                </h4>
+                            </div>
+                            <div [attr.id]="'collapseExample' + i" class="collapse" *ngFor="let sub_categories of category.sub_categories">
+                                <div class="panel-body">
+                                    <ul style="margin:0;cursor: pointer;">
+                                        <li><a (click)="getProductByCategory(sub_categories._id)">{{sub_categories.name}} </a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        
+                    </div><!--/category-products-->
+                </div>
+            </div>
+            
+            <div class="col-sm-9 padding-right">
+              <user-products-details [catId]="categoryId"></user-products-details>
+            </div>
+        </div>
+    </div>
+</section>

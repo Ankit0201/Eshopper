@@ -1,0 +1,12 @@
+.navbar-brand{
+    margin-right: 300px;
+}
+li{
+    cursor: pointer;
+}
+.navbar{
+    margin-bottom: 0 !important;
+}
+.nav-item{
+    padding: 15px;
+}

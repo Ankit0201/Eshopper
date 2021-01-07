@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-md-12">
+        <admin-header></admin-header>
+    </div>
+    <div class="col-md-3">
+        <admin-side-nav></admin-side-nav>
+    </div>
+    <div class=" col-md-7 list">
+        <div class="name">
+            <h1>Products</h1>
+            <hr>
+        </div>
+        <div class="d-flex justify-content-between">
+            <mat-form-field appearance="fill" style="width: 50%;">
+ 
+                <mat-label>Search </mat-label>
+                <input matInput name="searchkey"  [(ngModel)]="searchKey" (input)=apply() >
+                <mat-icon class="search">search</mat-icon>
+            </mat-form-field>
+            <div>
+                <button mat-raised-button color="primary"  >Sort By Name</button>
+            </div>
+            <div>
+                <button mat-raised-button color="accent" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                   Create New User</button>
+            </div>
+        </div>
+
+        
+        <mat-table class="lessons-table mat-elevation-z8" [dataSource]="usersListData" style="width: 123%;">
+
+           
+            <ng-container matColumnDef="Name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let user ">{{user.firstname}}  {{ user.lastname}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Email" >
+                <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+               <mat-cell *matCellDef="let user ">{{user.email}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Contact" >
+                <mat-header-cell *matHeaderCellDef>Contact</mat-header-cell>
+               <mat-cell *matCellDef="let user ">{{user.phone}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Profile-Image" >
+                <mat-header-cell *matHeaderCellDef>Profile-Image</mat-header-cell>
+               <mat-cell *matCellDef="let user ">
+                   <img src="http://localhost:3001/uploads/profile_img/{{user.profile_img}}" alt="Images" style="height: 81px;">
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Address">
+                <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+                <mat-cell *matCellDef="let user ">{{user.address.state}}</mat-cell>
+            </ng-container>
+
+             <ng-container matColumnDef="Action">
+                <mat-header-cell *matHeaderCellDef>Action </mat-header-cell>
+                <mat-cell class="duration-cell" *matCellDef="let user">
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+                        <mat-icon  >delete-outline</mat-icon>
+                    </button>
+                </mat-cell>
+              
+
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row *matRowDef="let row; columns: displayedColumns" style="height: 100px;"></mat-row>
+
+        </mat-table>
+    </div>
+</div>
+
+<!--Form--> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h5 class="modal-title" id="exampleModalLabel">Add Products</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+            </div>
+
+            <div class="modal-body">
+               <user-sign-in></user-sign-in>
+            </div>
+
+
+        </div>
+    </div>
+</div>

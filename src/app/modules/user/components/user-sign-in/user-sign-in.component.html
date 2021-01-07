@@ -1,0 +1,50 @@
+<div class="signup-form">
+    <!--sign up form-->
+    <h2>New User Sign-up!</h2>
+    <form [formGroup]="userSigninForm" (ngSubmit)="registerUser()">
+        <div>
+            <input type="text" placeholder="Firstname" formControlName="firstname" />
+            <span *ngIf="controls.firstname.touched && controls.firstname.invalid">Firstname is required</span>
+        </div>
+        <div>
+            <input type="text" placeholder="Lastname" formControlName="lastname" />
+            <span *ngIf="controls.lastname.touched && controls.lastname.invalid">Last is required</span>
+        </div>
+        <div>
+            <input type="email" placeholder="Email" formControlName="email" />
+            <span *ngIf="controls.email.touched && controls.email.invalid">
+                <p *ngIf="controls.email.errors.required">Email is required</p>
+                <p *ngIf="controls.email.errors.email">Email is not valid</p>
+            </span>
+
+        </div>
+        <div>
+            <input type="password" placeholder="Password" formControlName="password" />
+            <span *ngIf="controls.password.touched">{{getErrorPassword()}}</span>
+        </div>
+        <div>
+            <input type="file" placeholder="Profile Image" multiple (change)="selectImage($event)"
+                formControlName="userImg" />
+        </div>
+        <div>
+            <input type="text" placeholder="Role" formControlName="role" />
+            
+        </div>
+        <div>
+            <input type="text" placeholder="Phone" formControlName="phone" />
+            <span *ngIf="controls.phone.touched && controls.phone.invalid">
+                <p *ngIf="controls.phone.errors.required">Contact no. is required</p>
+                <p *ngIf="controls.phone.errors.minlength">Minimum 10 digits allow</p>
+            </span>
+        </div>
+        <div formGroupName="address">
+            <input type="text" placeholder="Address" formControlName="street" />
+            <input type="text" placeholder="City" formControlName="city" />
+            <input type="text" placeholder="State" formControlName="state" />
+            <input type="text" placeholder="Country" />
+            <input type="text" placeholder="Zip" formControlName="zip" />
+        </div>
+        <button type="submit" [disabled]="userSigninForm.invalid" class="btn btn-default">Sign-up</button>
+    </form>
+</div>
+<!--/sign up form-->
